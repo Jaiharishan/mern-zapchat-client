@@ -4,22 +4,26 @@ import { Redirect, useHistory } from "react-router-dom";
 
 const Login = () => {
 
+    // use history hook to redirect to another page
     let history = useHistory();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+
+    // when we submit the form the details are sent to server
+    // and if we get a response then we redirect to home page
     const onSubmit = async (e) => {
         e.preventDefault()
         const response = await axios.post('http://localhost:4000/auth/user/login', {
             email,
             password,
         })
-        
+        console.log(response);
         if (response) {
             const jwtToken = response.data.token;
             console.log(jwtToken);
-            localStorage.setItem('jwtToken', jwtToken);
+            localStorage.setItem('jwtToken', JSON.stringify(jwtToken));
             // console.log(response.data);
             history.push('/');
 

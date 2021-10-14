@@ -5,11 +5,19 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Global from './pages/Global/Global';
 import Register from './pages/Register/Register';
 import Login from './pages/Login/Login';
+import { UserProvider } from './UserContext.jsx';
+
+
 const App = () => {
+
+  // const [user, setUser] = useContext(UserContext)
+  // console.log('user: ' + user.name);
   return (
-    <Router >
+    <UserProvider>
+
+      <Router >
     
-       <Switch>
+        <Switch>
 
           <Route path='/register'>
               <Register />
@@ -21,21 +29,20 @@ const App = () => {
           </Route>
 
           <Route path='/chat'>
-              <Chatpage />
+          <Chatpage />
+              {/* {user ? <Chatpage /> : <Redirect to='/login' />} */}
           </Route>
 
           <Route path='/'>
               <Global />
+              {/* {user ? <Global /> : <Redirect to='/login' />} */}
           </Route>
 
-          <Route path='/z'>
-            <div>hi z!</div>
-          </Route>
+        </Switch>
 
-       </Switch>
-
-    </Router>
-   
+      </Router>
+    </UserProvider>
+    
   )
 }
 

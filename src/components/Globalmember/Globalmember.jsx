@@ -1,30 +1,25 @@
 import { Search } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
 import Membercard from '../Membercard/Membercard';
-import axios from 'axios';
-
-
+import fetcher from '../../axios/axios';
 
 const Globalmember = () => {
 
     const [users, setUsers] = useState([]);
 
-    const token = localStorage.getItem('jwtToken');
+    // const token = localStorage.getItem('jwtToken');
 
-    const fetchUrl = 'http://localhost:4000/api/users'; 
+    // const fetchUrl = 'http://localhost:4000/api/users'; 
+
     // to send a get request for users using axios and setting token in headers
 
     useEffect(() => {
         const fetchUsers = async () => {
 
-            const res = await axios.get(fetchUrl, {
-                headers: {
-                  'token': token
-                }});
+            const res = await fetcher.get('/api/users');
 
             if (res) {
                 setUsers(res.data.users);
-                console.log(users);
             }
 
             else {
@@ -36,9 +31,10 @@ const Globalmember = () => {
 
         fetchUsers()
 
-    }, [users, fetchUrl, token])
+    }, [])
 
-    const array = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+
     return (
         <div className='d-flex flex-column align-items-center mt-5'>
 
@@ -49,9 +45,13 @@ const Globalmember = () => {
 
 
             <div className="d-flex flex-wrap align-items-center justify-content-center mt-5">
-                {array.map((a, i) => {
-                    return <Membercard key={i}/>
-                })}
+
+
+                {
+                    users.map((user, i) => {
+                        return <Membercard key={i} user = {user} />
+                    })
+                }
                 
             </div>
 

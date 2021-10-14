@@ -16,6 +16,7 @@
   
 .member {
     cursor: pointer;
+    user-select: none;
 }
   
 .scroll-box__wrapper::-webkit-scrollbar {

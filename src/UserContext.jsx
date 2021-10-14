@@ -14,7 +14,7 @@ export const UserProvider = props => {
     const [user, setUser] = useState({});
 
     useEffect(() => {
-        const fetchUsers = async () => {
+        const fetchUser = async () => {
 
             const res = await fetcher.get('/api/user');
 
@@ -29,7 +29,7 @@ export const UserProvider = props => {
 
         }
 
-        fetchUsers()
+        fetchUser()
 
     }, [])
 

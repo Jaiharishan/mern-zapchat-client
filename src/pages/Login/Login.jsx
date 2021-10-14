@@ -14,12 +14,17 @@ const Login = () => {
     // when we submit the form the details are sent to server
     // and if we get a response then we redirect to home page
     const onSubmit = async (e) => {
+
+        // to prevent form from default submitting
         e.preventDefault()
         const response = await axios.post('http://localhost:4000/auth/user/login', {
             email,
             password,
         })
-        console.log(response);
+
+        // console.log(response);
+
+
         if (response) {
             const jwtToken = response.data.token;
             console.log(jwtToken);

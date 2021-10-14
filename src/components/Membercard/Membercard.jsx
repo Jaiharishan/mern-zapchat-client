@@ -1,15 +1,29 @@
 import { Avatar, Button } from '@material-ui/core'
 import React, { useState } from 'react'
+import fetcher from '../../axios/axios'
 
 const Membercard = ({user}) => {
 
     const [isFollow, setIsFollow] = useState(false)
 
-    const handelFollow = () => {
+    const handelFollow = async () => {
+
+        // handling the follow 
         setIsFollow(isFollow => {
             console.log(isFollow);
             return !isFollow
         });
+
+        // giving post request to add following
+        const response = await fetcher.post('/api/addFollow', {
+            followID: user._id,
+            isFollow: isFollow,
+        })
+
+        // if success response then following and followers are added to the database
+        if (response) console.log(response)
+
+
     }
 
 

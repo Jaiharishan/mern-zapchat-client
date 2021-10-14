@@ -1,16 +1,28 @@
 
 import { Avatar } from '@material-ui/core'
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect, useCallback, useContext } from 'react';
 import './Members.css'
 import { throttle } from 'lodash';
+import fetcher from '../../axios/axios';
+import { UserContext } from '../../UserContext';
 
 
 const timing = (1 / 60) * 1000;
 const decay = v => -0.1 * ((1 / timing) ^ 4) + v;
 
 const Members = () => {
+  
+    const [user, setUser] = useContext(UserContext);
 
-    const array = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+    // const array = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+
+    // setting following from the user context which has all data related to user
+
+    // following has the set of id's of users
+    const [following, setFollowing] = useState(user.following);
+
+
+
     const scrollWrapperRef = useRef();
 
     const [clickStartX, setClickStartX] = useState();
@@ -104,7 +116,7 @@ const Members = () => {
         <div className="scroll-box__wrapper" ref={scrollWrapperRef}>
             <div className="scroll-box__container" role="list" style={{ pointerEvents: isDragging ? 'none' : undefined }}>
             {
-                array.map((member, index) => {
+                following.map((member, index) => {
                     return <div key={index} className="member d-flex flex-column align-items-center mx-3">
                     <Avatar src={`assets/person/${index + 1}.jpeg`} style={{ width: 70, height: 70}} />
                     <div style={{color: 'rgb(30, 30, 30)'}}>priya</div>
